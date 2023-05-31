@@ -39,7 +39,7 @@ namespace Wallet.Controllers
                     UserTransactionsViewModel = _transactionService.GetUserTransactions(User.Identity.Name),
                 };
 
-                return View("Home",model);
+                return View("Home", model);
             }
 
             _notyf.Success("Welcome");
@@ -49,7 +49,7 @@ namespace Wallet.Controllers
         [Authorize(Roles = Administrator)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { ErrorMessage = "Something wrong!"});
+            return View(new ErrorViewModel { ErrorMessage = "Something wrong!" });
         }
     }
 }

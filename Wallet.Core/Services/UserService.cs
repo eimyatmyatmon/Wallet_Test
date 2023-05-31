@@ -35,7 +35,7 @@ namespace Wallet.Core.Services
                     Balance = u.Wallet.Balance.ToString("F2"),
                     PhoneNumber = u.PhoneNumber,
                 })
-                .OrderBy(u=>u.UserName)
+                .OrderBy(u => u.UserName)
                 .ToListAsync();
 
         public User? GetUserByName(string user)
@@ -47,8 +47,8 @@ namespace Wallet.Core.Services
 
         public User? GetUserById(string userId)
             => _repo.All<User>()
-                .Include(u=>u.Wallet)
-                .Include(u=>u.Wallet.UserAssets)
+                .Include(u => u.Wallet)
+                .Include(u => u.Wallet.UserAssets)
                 .Include(u => u.Wallet.Transactions)
                 .FirstOrDefault(u => u.Id == userId);
 
@@ -207,10 +207,10 @@ namespace Wallet.Core.Services
 
             var dic = new Dictionary<string, int>();
 
-            dic.Add("users",usersCount);
-            dic.Add("categories",categoriesCount);
-            dic.Add("assets",assetsCount);
-            dic.Add("roles",rolesCount);
+            dic.Add("users", usersCount);
+            dic.Add("categories", categoriesCount);
+            dic.Add("assets", assetsCount);
+            dic.Add("roles", rolesCount);
 
             return new AdminHomeViewModel() { CountOfEntities = dic };
         }

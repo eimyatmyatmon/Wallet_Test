@@ -26,7 +26,7 @@ namespace Wallet.Core.Services
                 .Where(w => w.User.UserName == identityName)
                 .Select(w => w.UserAssets)
                 .First()
-                .OrderBy(a=>a.Quantity)
+                .OrderBy(a => a.Quantity)
                 .Select(a => new UserAssetViewModel()
                 {
                     Id = a.Id,
