@@ -1,0 +1,56 @@
+﻿@model Wallet.Core.ViewModels.Asset.CreateAssetModel;
+
+@{
+    ViewData["Title"] = "Create asset";
+}
+
+<div class="row">
+    <div class="offset-md-2 col-md-6 col-sm-12">
+        <h4>Create Asset</h4>
+
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Abbreviation" class="control-label"></label>
+                <input asp-for="Abbreviation" class="form-control" />
+                <span asp-validation-for="Abbreviation" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CategoryName" class="control-label"></label>
+                <input asp-for="CategoryName" value="@Model.CategoryName" class="form-control" readonly=""/>
+                <input asp-for="CategoryId" value="@Model.CategoryId" type="hidden"/>
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Value" class="control-label"></label> <br/>
+                <input asp-for="Value" class="form-control" type="number" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label class="control-label">Logo</label> 
+                <br/>
+                <input type="file" name="logo" class="form-control-file" accept="image/png, image/jpeg">
+            </div>
+
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

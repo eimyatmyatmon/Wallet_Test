@@ -1,0 +1,65 @@
+﻿@using Wallet.Core.ViewModels.Transaction
+@model IEnumerable<Wallet.Core.ViewModels.Transaction.UserTransactionsViewModel>
+
+@{
+    ViewData["Title"] = "Manage user transactions";
+    var hasElements = ((List<UserTransactionsViewModel>)Model).Any();
+}
+
+@if (hasElements)
+{
+    <p class="text-center float-end">
+        <a type="button" class="btn btn-outline-danger" asp-action="ClearTransactions" asp-route-username="@Model.First().Username">Clear transactions of @Model.First().Username</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amont)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (hasElements)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amont)
+                    </td>
+                </tr>
+            }
+        }
+        @if (!hasElements)
+        {
+            <h5 class="text-center">User have no transactions!</h5>
+        }
+    </tbody>
+</table>

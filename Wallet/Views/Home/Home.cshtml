@@ -1,0 +1,96 @@
+﻿@model Wallet.Core.ViewModels.Home.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- User information -->
+<div class="card">
+    <img src="@Model.UserViewModel.Image" alt="No picture!" style="width:100%">
+    <h1>@Model.UserViewModel.Username</h1>
+    <p class="title">@Model.UserViewModel.Email</p>
+    <p class="text-dark" style="font-size: 2rem">Balance: $@Model.UserViewModel.Balance</p>
+    <p>
+        <a type="button" asp-controller="Category" asp-action="All" class="btn btn-outline-success">Buy</a>
+        <a type="button" asp-controller="UserAsset" asp-action="All" class="btn btn-outline-info">My assets</a>
+    </p>
+</div>
+
+<!-- User assets -->
+<hr />
+<h4 class="text-center">User assets</h4>
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table class="table table-bordered table-striped mb-0">
+        <thead>
+            <tr>
+                <th scope="col">Abbreviation</th>
+                <th scope="col">Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">BuyedPrice</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.UserAssetsViewModel == null)
+            {
+                <tr>
+                    No UserAssets
+                </tr>
+            }
+            @if (Model.UserAssetsViewModel != null)
+            {
+                @foreach (var asset in @Model.UserAssetsViewModel)
+                {
+                    <tr>
+                        <th scope="row">@asset.Abbreviation</th>
+                        <td>@asset.Name</td>
+                        <td>@asset.Category</td>
+                        <td>$@asset.BuyedPrice</td>
+                        <td>$@asset.Amount</td>
+                        <td>@asset.Quantity</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Transaction history of user -->
+<hr />
+<h4 class="text-center">Transaction history</h4>
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table class="table table-bordered table-striped mb-0">
+        <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Date</th>
+                <th scope="col">Type</th>
+                <th scope="col">Value</th>
+                <th scope="col">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tran in @Model.UserTransactionsViewModel)
+            {
+                <tr>
+                    <th scope="row">@tran.Username</th>
+                    <td>@tran.Date</td>
+                    @if (tran.Type == "Buy" || tran.Type == "Withdraw")
+                    {
+                        <td style="color: red">@tran.Type</td>
+                    }
+                    @if (tran.Type == "Sell" || tran.Type == "Deposit")
+                    {
+                        <td style="color: green">@tran.Type</td>
+                    }
+                    <td>$@tran.Value</td>
+                    @if (tran.Type == "Buy" || tran.Type == "Sell")
+                    {
+                        <td>$@tran.Amont</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  sql1:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    # image: mcr.microsoft.com/mssql/server:2019-latest-linux-arm64
+    container_name: sql1
+    hostname: sql1
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=P@ssw0rd
+    user: "root"
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./data:/var/opt/mssql
+    restart: always
+    security_opt:
+      - "no-new-privileges:true"
+    userns_mode: "host"
